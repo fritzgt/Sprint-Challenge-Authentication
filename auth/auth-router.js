@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 //importing jwt to create token during login
 const jwt = require('jsonwebtoken');
 //importing the secret file for token
-const secrets = require('../config/secrets')
+const secrets = require('../config/secrets');
 
 //REGISTER user
 router.post('/register', async (req, res) => {
@@ -51,16 +51,16 @@ router.post('/login', async (req, res) => {
 });
 
 //creating genToken function
-function genToken(user){
-  const payload ={
-    subject = user.id,
-    username = user.username
-  }
+function genToken(user) {
+  const payload = {
+    subject: user.id,
+    username: user.username
+  };
   const options = {
     expiresIn: '1d'
-  }
-//Generating token
-return jwt.sign(payload, secrets.jwtSecret, options)
+  };
+  //Generating token
+  return jwt.sign(payload, secrets.jwtSecret, options);
 }
 
 module.exports = router;
