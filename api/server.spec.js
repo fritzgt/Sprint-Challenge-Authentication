@@ -1,8 +1,11 @@
+const express = require('express');
+const app = express();
+
 //importing supertest
 const request = require('supertest');
 
 //importing server
-// const server = require('../api/server');
+const server = require('../api/server');
 const db = require('../database/dbConfig');
 const users = require('../model/users-model.js');
 
@@ -13,7 +16,7 @@ describe('server.js', () => {
   });
 });
 
-//check register user
+//CHECK USER REGISTRATION
 describe('POST /', () => {
   //clear entries in db before test
   beforeEach(async () => {
@@ -33,4 +36,13 @@ describe('POST /', () => {
     newUser = await users.add({ username: 'sasha', password: '1234' });
     expect(newUser.username).toBe('sasha');
   });
+});
+
+//CHECK LOGIN
+describe('POST /users', function() {
+  beforeEach(async () => {
+    await db('users').truncate();
+  });
+
+  it('responds with json', async () => {});
 });
