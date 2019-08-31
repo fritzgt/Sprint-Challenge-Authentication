@@ -30,7 +30,7 @@ describe('POST /', () => {
     expect(Users).toHaveLength(2);
   });
   //checks if the insert comes from this and not for existing data
-  it('Should return 3 users', async () => {
+  it('Test if is creating new users', async () => {
     let newUser = await users.add({ username: 'Kristen', password: '1234' });
     expect(newUser.username).toBe('Kristen');
     newUser = await users.add({ username: 'sasha', password: '1234' });
@@ -39,10 +39,21 @@ describe('POST /', () => {
 });
 
 //CHECK LOGIN
-describe('POST /users', function() {
+describe('POST / login', () => {
+  //clear entries in db before test
   beforeEach(async () => {
     await db('users').truncate();
   });
+  //check if the  findByUser reuest return correct user
+  it('Should return username', async () => {
+    await users.add({ username: 'Kristen', password: '1234' });
+    const res = await users.findByUser('Kristen');
+    expect(res.username).toBe('Kristen');
+  });
 
-  it('responds with json', async () => {});
+  //test for format json, XML
+  it('Should return json', async () => {
+    const res = await request(server).post('/api/auth/login');
+    expect(res.type).toBe('application/json');
+  });
 });
