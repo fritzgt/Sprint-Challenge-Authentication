@@ -2,7 +2,7 @@ const db = require('../database/dbConfig');
 
 module.exports = {
   find,
-  findById,
+  findByUser,
   add,
   update,
   remove
@@ -10,7 +10,7 @@ module.exports = {
 
 function find() {}
 
-function findById(id) {}
+function findByUser(User) {}
 
 async function add(user) {
   const [id] = await db('users').insert(user, 'id');
